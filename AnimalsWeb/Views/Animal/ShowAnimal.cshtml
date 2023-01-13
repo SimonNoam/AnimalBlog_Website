@@ -1,0 +1,49 @@
+﻿@model Tuple<Animal,Comment>
+@{
+    ViewData["Title"] = "Animal Page";
+}
+<body style="background-color:#FFFF99">
+<br />
+<h2>Animal Deatails</h2>
+<div class="container row">
+
+    <div class="col">
+        <ul class="list-group list-group-item-light" style="font-size:18px">
+            <li class="list-group-item "> Name : @Model.Item1.Name</li>
+            <li class="list-group-item ">Age :@Model.Item1.Age</li>
+            <li class="list-group-item " > Description : @Model.Item1.Description</li>
+            <li class="list-group-item " > Category : @Model.Item1.Category.Name</li>
+        </ul>
+    </div>
+
+    <div class="col-4 align-content-end  text-center" >
+        <h2>All Animal Comments</h2>
+        <ol>
+            @foreach (var comment in @Model.Item1.Comments!)
+            {
+                <li style="font-size:20px" >
+                    @comment.Content
+                </li>
+            }
+        </ol>
+    </div>
+
+    <div class="row-cols-5">
+        <div class="form-group"><br/>
+        <form class="form-inline justify-content-center" asp-action="CommentAdding" asp-route-animalId="@Model.Item1.AnimalId" method="post">
+            <div class="form-group">
+                <h2 asp-for="Item2.Content"></h2>
+                <input name="val" asp-for="Item2.Content" class="form-control" />
+                <span asp-validation-for="Item2.Content"></span>
+            </div>
+            <div class="form-group">
+                    <input type="submit" value="Add comment" class="btn btn-outline-dark" />
+                        <div asp-validation-summary="All"></div>
+            </div>
+        </form>   
+        </div>
+           
+    </div>
+</div>
+
+</body>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Animal>
+@{
+    ViewBag.Title = "Catalog";
+    var photoPath = "~/Images/";
+}
+<script>
+    $(function () {
+        $(".cat-select").change(function () {
+            let selected = $('.cat-select').val();
+            window.location.href = "/Catalog/Index/" + selected
+        });
+    });
+</script>
+
+<body style="background:url(https://wallpaperaccess.com/full/773426.jpg)">
+
+    <div class="divcenter" align="center" style="background-color:#CCFF99">
+        <span> Please Choose your Category: </span>
+        <select class="cat-select myselect-option">
+            <option class="myselect-child" value="">choose</option>
+            <option class="myselect-child" value="0">Show All</option>
+            @foreach (var category in ViewBag.List)
+            {
+                <option class="myselect-child" value="@category.CategoryId">@category.Name</option>
+            }
+        </select>
+    </div>
+    <br />
+
+    <div class="container tablecenter text-center" align="center">
+
+        <table class="table table-dark  table-striped" style="width:60%">
+            <tr class="table-dark ">
+                <th class="col-3">Image</th>
+                <th class="col-3">Name</th>
+                <th class="col-3">More About</th>
+            </tr>
+            @foreach (var animal in Model!)
+            {
+                <tr class="table-dark">
+                    <td class="col-3 ">
+                        <img class="img-fluid rounded-start" asp-append-version="true" src="@photoPath@animal.PictureName" />
+                    </td>
+
+                    <td class=" col-3">
+                        @animal.Name
+                    </td>
+
+                    <td class=" col-3">
+                        <a asp-controller="Animal" asp-action="ShowAnimal" asp-route-animalId="@animal.AnimalId" class="btn btn-primary mt-1 deatail-btn Btn">Deatails</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Animal>
+
+@{
+    ViewData["Title"] = "Admin System";
+    var photoPath = "~/Images/";
+}
+
+<script>
+    $(function () {
+        $(".admen-select").change(function () {
+            let selected = $('.admen-select').val();
+            window.location.href = "/Admenistrator/FrontPage/" + selected
+        });
+    });
+</script>
+
+<body style="background-color:rgba(94, 235, 145, 0.8)">
+
+    <h3 style="color:black">Admin System</h3>
+    <br />
+    <br />
+    <a asp-action="InsertAnimal" class="btn btn-light txtbx2">Add New Animal</a>
+
+    <div class="divcenter" style="background-color:honeydew;border-radius:10px" align="center">
+        <span> Please Choose your Category: </span>
+        <select class="admen-select myselect-option">
+            <option class="myselect-child" value="">please choose</option>
+            <option class="myselect-child" value="0">Show All</option>
+
+            @foreach (var category in ViewBag.cat)
+            {
+                <option class="myselect-child" value="@category.CategoryId">@category.Name</option>
+            }
+
+        </select>
+    </div>
+
+
+    <div class="container">
+        <table class="table table-bordered table-striped text-center">
+            <tr class="table-dark">
+                <th class="col-3">Portrait</th>
+                <th class="col-3">Name</th>
+                <th class="col-3">Age</th>
+                <th class="col-3">Description</th>
+                <th class="col-3">Delete Animal</th>
+                <th class="col-3">Update Animal</th>
+            </tr>
+            @foreach (var animal in Model)
+            {
+                <tr class="table-success">
+                    <td class="col-3">
+                        <img class="img-fluid rounded-start " asp-append-version="true" src="@photoPath@animal.PictureName">
+                    </td>
+                    <td class="col-3">
+                        @animal.Name
+                    </td>
+                    <td class="col-3">
+                        @animal.Age
+                    </td>
+                    <td class="col-3">
+                        @animal.Description
+                    </td>
+                    <td class="col-3">
+                        <a asp-action="Delete" asp-route-id="@animal.AnimalId" class="btn btn-outline-dark">Delete</a>
+                    </td>
+                    <td class="col-3">
+                        <a asp-action="Update" asp-route-id="@animal.AnimalId" class="btn btn-outline-dark">Update Animal</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>

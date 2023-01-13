@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    var photoPath = "~/Images/";
+}
+@*https://wallpaper.dog/large/20447956.jpg
+*@
+
+<body style="background-image:url(https://www.sgs.com/-/media/sgscorp/images/temporary/green-forest.cdn.en.1.jpg)">
+    <div>
+        <br />
+        <h2 class="head-effect">Most Viewd Animals on site</h2>
+        <br />
+    </div>
+    <div class="container">
+        <table class="table table-bordered text-center">
+            <tr class="table-dark d-flex">
+                <th class="col"></th>
+                <th class="col">Name</th>
+                <th class="col">Description</th>
+                <th class="col">Number Of Comments</th>
+            </tr>
+            @foreach (var animal in ViewBag.top)
+            {
+                <tr class="table-warning d-flex">
+                    <td class="col">
+                        <img class="img-fluid rounded-start" asp-append-version="true" src="@photoPath@animal.PictureName">
+                    </td>
+                    <td class="col">
+                        @animal.Name
+                    </td>
+                    <td class="col">
+                        @animal.Description
+                    </td>
+                    <td class="col">
+                        @animal.Comments.Count
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+</body>
